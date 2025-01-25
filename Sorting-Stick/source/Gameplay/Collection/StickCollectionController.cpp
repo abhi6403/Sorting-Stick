@@ -167,7 +167,7 @@ namespace Gameplay
 				sort_thread = std::thread(&StickCollectionController::processBubbleSort, this);
 				break;
 			case Gameplay::Collection::SortType::INSERTION_SORT:
-				time_complexity = " ";
+				time_complexity = "O(n^2)";
 				sort_thread = thread(&StickCollectionController::processInsertionSort, this);
 				break;
 			}
