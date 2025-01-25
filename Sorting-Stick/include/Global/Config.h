@@ -21,7 +21,7 @@ namespace Global
 		static const sf::String bubble_bobble_font_path;
 		static const sf::String DS_DIGIB_font_path;
 
-		static const sf::String compare_sfx_sound_path;;
+		static const sf::String compare_sfx_sound_path;
 		static const sf::String button_click_sound_path;
 		static const sf::String scream_sound_path;
 	};

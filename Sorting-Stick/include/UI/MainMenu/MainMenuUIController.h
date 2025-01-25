@@ -54,6 +54,8 @@ namespace UI
 			void radixSortButtonCallback();
 			void quitButtonCallback();
 
+			void setGameState();
+
 			void destroy();
 
 		public:

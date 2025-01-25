@@ -5,6 +5,7 @@
 #include "Event/EventService.h"
 #include "Global/Config.h"
 #include "Global/ServiceLocator.h"
+#include"Gameplay/Collection/StickCollectionController.h"
 
 namespace UI
 {
@@ -82,9 +83,16 @@ namespace UI
             quit_button->registerCallbackFuntion(std::bind(&MainMenuUIController::quitButtonCallback, this));
         }
 
-        void MainMenuUIController::bubbleSortButtonCallback()
+        void MainMenuUIController::setGameState()
         {
             ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
+            GameService::setGameState(GameState::GAMEPLAY);
+        }
+
+        void MainMenuUIController::bubbleSortButtonCallback()
+        {
+            setGameState();
+            ServiceLocator::getInstance()->getGameplayService()->sortElement(Gameplay::Collection::SortType::BUBBLE_SORT);
         }
 
         void MainMenuUIController::insertionSortButtonCallback()
