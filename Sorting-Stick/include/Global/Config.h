@@ -23,5 +23,6 @@ namespace Global
 
 		static const sf::String compare_sfx_sound_path;;
 		static const sf::String button_click_sound_path;
+		static const sf::String scream_sound_path;
 	};
 }

@@ -23,6 +23,10 @@ namespace Sound
 		if (!buffer_compare_sfx.loadFromFile(Config::compare_sfx_sound_path)) {
 			printf("Error loading compare sfx file");
 		}
+		if (!buffer_scream_sfx.loadFromFile(Config::scream_sound_path))
+		{
+			printf("Error loading scream sound");
+		}
 	}
 
 	void SoundService::playSound(SoundType soundType)
@@ -34,6 +38,9 @@ namespace Sound
 			break;
 		case SoundType::COMPARE_SFX:
 			sound_effect.setBuffer(buffer_compare_sfx);;
+			break;
+		case SoundType::SCREAM:
+			sound_effect.setBuffer(buffer_scream_sfx);
 			break;
 		default:
 			printf("Invalid sound type");
