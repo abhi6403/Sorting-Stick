@@ -178,6 +178,10 @@ namespace Gameplay
 				time_complexity = "O(n log n)";
 				sort_thread = thread(&StickCollectionController::processMergeSort, this);
 				break;
+			case Gameplay::Collection::SortType::QUICK_SORT:
+				time_complexity = "O(n log n)";
+				sort_thread = thread(&StickCollectionController::processQuickSort, this);
+				break;
 			}
 		}
 
@@ -340,6 +344,64 @@ namespace Gameplay
 			sticks[sticks.size() - 1]->stick_view->setFillColor(collection_model->placement_position_element_color);
 
 			setCompleteColor();
+		}
+
+		void StickCollectionController::processQuickSort()
+		{
+			quickSort(0, sticks.size() - 1);
+			setCompleteColor();
+		}
+
+		int StickCollectionController::partition(int left, int right)
+		{
+			SoundService* sound_service = ServiceLocator::getInstance()->getSoundService();
+
+			sticks[right]->stick_view->setFillColor(collection_model->selected_element_color);
+			int i = left - 1;
+
+			for (int j = left; j < right; j++)
+			{
+				sticks[j]->stick_view->setFillColor(collection_model->processing_element_color);
+
+				number_of_array_access += 2;
+				number_of_comparisons++;
+
+				if (sticks[j]->data < sticks[right]->data)
+				{
+					i++;
+					swap(sticks[i], sticks[j]);
+					number_of_array_access += 3;
+					sound_service->playSound(SoundType::COMPARE_SFX);
+
+					updateStickPosition();
+
+					this_thread::sleep_for(chrono::milliseconds(current_operation_delay));
+				}
+
+				sticks[j]->stick_view->setFillColor(collection_model->element_color);
+			}
+			swap(sticks[i + 1], sticks[right]);
+			number_of_array_access += 3;
+			updateStickPosition();
+
+			return i + 1;
+		}
+
+		void StickCollectionController::quickSort(int left, int right)
+		{
+			if (left < right)
+			{
+				int pivot_index = partition(left, right);
+
+				quickSort(left, pivot_index - 1);
+				quickSort(pivot_index + 1, right);
+
+				for (int i = left; i <= right; i++)
+				{
+					sticks[i]->stick_view->setFillColor(collection_model->placement_position_element_color);
+					updateStickPosition();
+				}
+			}
 		}
 
 		void StickCollectionController::processMergeSort()
