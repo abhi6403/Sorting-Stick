@@ -47,12 +47,15 @@ namespace Gameplay
 
             void inPlaceMerge(int left, int mid, int right);
             void inPlaceMergeSort(int left, int right);
+            void merge(int left, int mid, int right);
+            void mergeSort(int left, int right);
             void processSortThreadState();
 
             void processBubbleSort();
             void processInsertionSort();
             void processSelectionSort();
             void processInPlaceMergeSort();
+            void processMergeSort();
             void setCompleteColor();
 
             bool isCollectionSorted();
